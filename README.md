@@ -1,3 +1,3 @@
-# probabilistic-inference ### This is a licensed repo
+## probabilistic-inference [not for commercial use]
 
-## Codes under construction. For enquiries, contact: oguntoye@iastate.edu
+### Codes under construction. For enquiries, contact: oguntoye@iastate.edu
