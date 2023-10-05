@@ -1,0 +1,3 @@
+[console_scripts]
+keep = keep.cli:cli
+
