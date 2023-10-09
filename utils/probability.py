@@ -4,13 +4,8 @@ import argparse
 from typing import List, Any, Union
 import logging
 import os, sys
-print(sys.path)
-sys.path.append(sys.path[0] + '/..')
-
 
 from utils import helper
-from src import main
-
 
 # gaussian probability density function
 class pdf():
@@ -42,7 +37,7 @@ def item(gau1:pdf, gau2:pdf, section,xx, weight1, weight2):
 
   #  if both lines have equal weight or mass value
   if weight1 == weight2:
-    items2 = [gau2.gaussian(section,y) for y in section] # object function for every point on the vertical section line
+    items2 = [gau2.gaussian(xx,y) for y in section] # object function for every point on the vertical section line
     items2 = items2/np.max(items2) # for each plot to have a peak of 1
     items1 = [gau1.gaussian(xx,y) for y in section] # object function
     items1 = items1/np.max(items1) # for each plot to have a peak of 1
@@ -59,7 +54,7 @@ def item(gau1:pdf, gau2:pdf, section,xx, weight1, weight2):
   return items1, items2
 
 
-def item_sing(gau3: pdf,section,xx,):
+def item_sing(gau3: pdf,section,xx):
     items3 = [gau3.gaussian(xx,y) for y in section]
     items3 = items3/np.max(items3)
     return items3
@@ -67,17 +62,19 @@ def item_sing(gau3: pdf,section,xx,):
 
 # to plot combine map probability
 
-def plot_boundaries(args:dict, xx, x_range,  action = ''):
+def plot_boundaries(args:dict, xx, x_range, std: int, action = ''):
   # combined scattered plots
     _, _, error1, error2, distance = helper.create_data(args, xx)
+    # print(error1, error2)
 
-    y1a = helper.ypoint(args['line_1'], x_range, 'linear_margin', 2 * error1)
+    y1a = helper.ypoint(args['line_1'], x_range, 'linear_margin', std * error1)
     # upper bound margin
-    y1b = helper.ypoint(args['line_1'], x_range, 'linear_margin', 2 * error1) # lower bound margin
+    y1b = helper.ypoint(args['line_1'], x_range, 'linear_margin', -std * error1) # lower bound margin
 
-    y2a = helper.ypoint(args['line_2'], x_range, 'linear_margin', 2 * error2)
+
+    y2a = helper.ypoint(args['line_2'], x_range, 'linear_margin', std * error2)
     # upper bound margin
-    y2b = helper.ypoint(args['line_2'], x_range, 'linear_margin', 2 * error2)
+    y2b = helper.ypoint(args['line_2'], x_range, 'linear_margin', -std * error2)
 
     if distance > 0: # if line 1 is above line 2
         # end points for upper bound margin from line 1

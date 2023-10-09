@@ -4,10 +4,9 @@ import matplotlib.pyplot as plt
 import argparse
 from typing import List, Any, Union
 import logging
-import src.main as main
 
 
-def ypoint(line: List[int], x:int | np.ndarray, f_type: str=None, intercept:int = 0)-> int:
+def ypoint(line: List[int], x:int | np.ndarray, f_type: str=None, std_error:int = 0)-> int:
     """
     This function outputs point y using the equation of lie and x point.
     Args:
@@ -16,11 +15,12 @@ def ypoint(line: List[int], x:int | np.ndarray, f_type: str=None, intercept:int 
     slope = (line[3] - line[1])/(line[2] - line[0])
     intercept = line[1] - slope * line[0]
     if f_type:
+
         if f_type.lower() == 'linear':
             y = x * slope + intercept
             return y
         elif f_type.lower() == 'linear_margin':
-            y = x * slope + intercept + intercept
+            y = x * slope + intercept + std_error
             return y
         else:
             logging.info(f" the f_type must be between ['linear', 'linear_margin']")
@@ -36,6 +36,7 @@ def error(distance: int | float, weight: int | float):
 
 def data_sampling(data_size:int, deviation: float | int, line:List[int],min, max,
                 f_type: str=None, intercept:int = 0 ):
+    np.random.seed(0)
     x = np.random.uniform(min, max, data_size)
     y = ypoint(line, x, f_type, intercept) + np.random.normal(0, deviation, len(x))
     return x, y
@@ -48,8 +49,8 @@ def create_data(args: dict, xx: float | int = min, f_type: str = None):
     weight2 = args['weight_2']
     data_size = args['data_size']
 
-    line_y1 = ypoint(line1, xx, f_type )
-    line_y2 = ypoint(line2, xx, f_type)
+    line_y1 = ypoint(line1, xx)
+    line_y2 = ypoint(line2, xx)
 
     distance = line_y1 - line_y2
     dist = abs(distance)
@@ -59,12 +60,9 @@ def create_data(args: dict, xx: float | int = min, f_type: str = None):
 
     min, max = min_max(line1, line2)
 
-    intercept = np.sqrt(int((standard_error1 * standard_error2)**2 / \
-              (standard_error1**2 + standard_error2**2))) #not later used, just here for initialization purpose
-
     #iid samples to plot
-    X1,Y1 = data_sampling(data_size, standard_error1, line1,min, max, f_type, intercept)# since linear, intt is not used
-    X2,Y2 = data_sampling(data_size, standard_error2, line1,min, max, f_type, intercept) # #since linear, intt is not used
+    X1,Y1 = data_sampling(data_size, standard_error1, line1,min, max)# since linear, intt is not used
+    X2,Y2 = data_sampling(data_size, standard_error2, line1,min, max) # #since linear, intt is not used
 
     df2 = pd.DataFrame([X2,Y2]).T
     df2 = df2.rename(columns = {0: 'X', 1: 'Y'})
@@ -76,16 +74,6 @@ def create_data(args: dict, xx: float | int = min, f_type: str = None):
 
     return df1, df2,  standard_error1, standard_error2, distance
 
-def argument():
-    parser = argparse.ArgumentParser(description='A sample argument parser')
-    parser.add_argument('--line_1','-l_1', type=int, \
-                        nargs = "+", help='[x1, y1, x2, y2]', required = True)
-    parser.add_argument('--line_2','-l_2', type=int, \
-                        nargs = "+", help='[x1, y1, x2, y2]', required = True)
-    parser.add_argument('--weight_1','-w_1', type=float, help='mass value for line 1', default = 0.5)
-    parser.add_argument('--weight_2','-w_2', type=float, help='mass value for line 2', default = 0.5)
-    args = parser.parse_args()
-    return args
 
 COLOR1 = '#FEF9E7'
 COLOR2 = '#5E432E'
