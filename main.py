@@ -70,7 +70,7 @@ def run():
         sets = [(ix,x) for ix, x in enumerate(proba)] # tuple(index, probability)
 
         sets.sort(key = probability.takeSecond) # sort sets based on the size of probability (low to high) [(reordered index, low) to (_, high)]
-        print(sets)
+
         colors = helper.get_color_gradient(helper.COLOR1, helper.COLOR2, len(proba))
 
         prob_color = dict([(value[1], color) for value,color in zip(sets, colors)])
