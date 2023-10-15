@@ -7,25 +7,28 @@ import logging
 import os, sys
 
 from utils import *
+def string_int(arg):
+    return list(map(int, arg.split(",")))
 
 DATA_SIZE = 100
 
 def argument():
     parser = argparse.ArgumentParser(description='A sample argument parser')
-    parser.add_argument('--line_1','-l_1', type=int, \
-                        nargs = "+", help='[x1, y1, x2, y2]', required = True)
-    parser.add_argument('--line_2','-l_2', type=int, \
-                        nargs = "+", help='[x1, y1, x2, y2]', required = True)
+    parser.add_argument('--line_1','-l_1', type=string_int, \
+                         help='[x1, y1, x2, y2]', required = True)
+    parser.add_argument('--line_2','-l_2', type=string_int, \
+                         help='[x1, y1, x2, y2]', required = True)
     parser.add_argument('--weight_1','-w_1', type=float, help='mass value for line 1', default = 0.5)
     parser.add_argument('--weight_2','-w_2', type=float, help='mass value for line 2', default = 0.5)
     parser.add_argument('--data_size','-d_s', type=int, help='data size', default = DATA_SIZE)
-    parser.add_argument('--shift_rate','-dx', type=float, help='shift rate along x axis', default = 0.1)
-    parser.add_argument('--threshold','-thresh', type=float, help='data size', default = 0.1)
+    parser.add_argument('--shift_rate','-dx', type=float, help='shift rate along x axis', default = 0.1 )
+    parser.add_argument('--threshold','-thresh', type=float, help='data size', default = 0.01)
     parser.add_argument('--standard_dev','-std', type=int, help='numbr of std error from the mean', default = 2)
     args = parser.parse_args()
     return args
 
 def run():
+
     args = vars(argument())
 
     line1 = args['line_1']
@@ -40,7 +43,7 @@ def run():
     y_upper,y_lower,x = [], [], []
 
 
-    x_min, x_max= helper.min_max(line1, line2)
+    x_min, x_max= helper.x_min_max(line1, line2)
     x_range = np.linspace(x_min, x_max, data_size)
     xx = x_min
 
@@ -67,11 +70,13 @@ def run():
         df1, df2, error1, error2, dist= helper.create_data(args, xx)
         proba = probability.get_prob(args, df1, df2, range_, xx)
 
+
         sets = [(ix,x) for ix, x in enumerate(proba)] # tuple(index, probability)
 
         sets.sort(key = probability.takeSecond) # sort sets based on the size of probability (low to high) [(reordered index, low) to (_, high)]
 
         colors = helper.get_color_gradient(helper.COLOR1, helper.COLOR2, len(proba))
+
 
         prob_color = dict([(value[1], color) for value,color in zip(sets, colors)])
 
@@ -82,6 +87,7 @@ def run():
         new_color = {}
 
         for keys, values in prob_color.items():
+
             if keys < threshold: #any less than or equal 10% probability
                 value = 'white'
                 new_color[keys] = value
@@ -97,15 +103,17 @@ def run():
                 plt.vlines(xx, ymin = range_[count], ymax = range_[count + 5], color = color,\
                         label =  f'mass = {weight_1:.2f}, {weight_2:.2f}')
 
+
             except IndexError:
                 pass
 
             count += 5
 
-        xx += 0.1
-    plt.show()
+        xx += dx
+    plt.savefig('temp/plot.png')
 
 
 
 if __name__ == "__main__":
     run()
+

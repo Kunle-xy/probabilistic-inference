@@ -1,5 +1,6 @@
 # import dependencies
-import numpy as np, pandas as pd
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import argparse
 from typing import List, Any, Union
@@ -26,10 +27,14 @@ def ypoint(line: List[int], x:int | np.ndarray, f_type: str=None, std_error:int 
             logging.info(f" the f_type must be between ['linear', 'linear_margin']")
     else: return x * slope + intercept
 
-def min_max(line1:List[int], line2:List[int]):
+def x_min_max(line1:List[int], line2:List[int]):
     min = sorted([line1[0], line2[0]])[0] # finds the minimum x value in the graph
     max = sorted([line1[2], line2[2]])[1]
     return min, max
+
+def y_min_max(line1, line2):
+    line = sorted((line1[1], line1[3], line2[1], line2[3])) # finds the minimum y value in the grap
+    return line[0]-50, line[-1]+50
 
 def error(distance: int | float, weight: int | float):
    return np.sqrt(5 + distance * 20 * (1-weight))
@@ -38,7 +43,7 @@ def data_sampling(data_size:int, deviation: float | int, line:List[int],min, max
                 f_type: str=None, intercept:int = 0 ):
     np.random.seed(0)
     x = np.random.uniform(min, max, data_size)
-    y = ypoint(line, x, f_type, intercept) + np.random.normal(0, deviation, len(x))
+    y = ypoint(line, x, f_type, intercept) + np.random.normal(0, deviation, data_size)
     return x, y
 
 def create_data(args: dict, xx: float | int = min, f_type: str = None):
@@ -58,11 +63,11 @@ def create_data(args: dict, xx: float | int = min, f_type: str = None):
     standard_error1 = error(dist, weight1)
     standard_error2 =  error(dist, weight2)
 
-    min, max = min_max(line1, line2)
+    min, max = x_min_max(line1, line2)
 
     #iid samples to plot
     X1,Y1 = data_sampling(data_size, standard_error1, line1,min, max)# since linear, intt is not used
-    X2,Y2 = data_sampling(data_size, standard_error2, line1,min, max) # #since linear, intt is not used
+    X2,Y2 = data_sampling(data_size, standard_error2, line2,min, max) # #since linear, intt is not used
 
     df2 = pd.DataFrame([X2,Y2]).T
     df2 = df2.rename(columns = {0: 'X', 1: 'Y'})
