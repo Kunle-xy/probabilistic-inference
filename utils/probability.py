@@ -34,7 +34,7 @@ class pdf():
 
 # passes dataframe into pdf class and estaimates the probability
 
-def item(gau1:pdf, gau2:pdf, section,xx, weight1, weight2):
+def item(gau1:pdf, gau2:pdf, section, xx, weight1, weight2):
 
   #  if both lines have equal weight or mass value
   if weight1 == weight2:

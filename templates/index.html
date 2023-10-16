@@ -39,6 +39,39 @@ table tr td:nth-child(3){
 .reset{
     margin-left: 275px;
 }
+.loading {
+    width: 35px;
+    height: 35px;
+    /* display: none; */
+    background-image: url('loading.gif') no-repeat;
+    background-size: cover;
+    animation: spin 2s linear infinite;
+
+    }
+.section{
+    margin-top: 20px;
+    margin-left: 50px;
+}
+.section input{
+    width: 200px;
+    padding: 5px;
+}
+.error{
+    color: red;
+    margin-left: 50px;
+    display: none;
+}
+/* .cards_result{
+    background: linear-gradient(135deg, #00feba 0%, #5b548a 100%);
+    border-radius: 20px;
+    color: #fff;
+    width: 90%;
+    height:65%;
+    padding: 20px;
+    margin-left:500px;
+    font-size: 20px;
+    display: none;
+} */
     </style>
     <title>Document</title>
 </head>
@@ -56,39 +89,70 @@ table tr td:nth-child(3){
                     <tbody>
                         <tr>
                             <td>Endpoint 1</td>
-                            <td><input type="text" name='line1a' id="line1a" placeholder=" x1,y1" required></td>
-                            <td><input type="text"name='line2a' id="line2a" placeholder=" x1,y1" required></td>
+                            <td><input style="padding: 5px;" type="text" name='line1a' id="line1a" placeholder=" x1,y1" required></td>
+                            <td><input style="padding: 5px;" type="text"name='line2a' id="line2a" placeholder=" x1,y1" required></td>
                          </tr>
                          <tr>
                             <td>Endpoint 2</td>
-                            <td><input type="text" name='line1b' id="line1b" placeholder=" x2,y2" required></td>
-                            <td><input type="text" name='line2b' id="line2b" placeholder=" x2,y2" required></td>
+                            <td><input style="padding: 5px;" type="text" name='line1b' id="line1b" placeholder=" x2,y2" required></td>
+                            <td><input style="padding: 5px;" type="text" name='line2b' id="line2b" placeholder=" x2,y2" required></td>
                          </tr>
                          <tr>
                             <td>Weights</td>
-                            <td><input type="number" name="weight_1" id="weight_1" step="0.01" placeholder=" 0 to 1" required></td>
-                            <td><input type="number" name="weight_2" id="weight_2" step="0.01" placeholder=" 0 to 1" required></td>
+                            <td><input style="padding: 5px;" type="number" name="weight_1" id="weight_1" step="0.01" placeholder=" 0 to 1" required></td>
+                            <td><input style="padding: 5px;" type="number" name="weight_2" id="weight_2" step="0.01" placeholder=" 0 to 1" required></td>
                          </tr>
                     </tbody>
                 </table>
+                <div class="section">
+                    <label for="section">Section</label>
+                    <input type="number" name="section" id="section" step="0.05" placeholder=" 0 to 1" required>
+                    <label for="shift-size">Shift Size</label>
+                    <input type="number" name="shift_size" id="shift_size" step="0.05" placeholder=" 0.1 to 5" required>
+                </div>
                 <div class="form-footer">
-                    <button><input style=" width: 200px; padding: 15px" type="submit" value="Generate Plot"></button>
-                    <input style=" width: 200px; padding: 15px" type="reset" class="reset"  value="Reset">
+                    <button><input style=" width: 200px; padding: 15px" id ="submitBtn" type="submit" value="Generate Plot" onclick="loading()"></button>
+                    <input style=" width: 200px; padding: 15px" id ="resetBtn" type="reset" class="reset"  value="Reset">
+                </div>
+                <div class="error">
+                    <h6> Check endpoints and ensure they are fairly paired</h6>
                 </div>
             </form>
-            <script>
-            function validate(){
-                const weight1 = parseFloat(document.getElementById("weight_1").value);
-                const weight2 = parseFloat(document.getElementById("weight_2").value);
-                const sum = weight1  + weight2;
-                if (Math.abs(sum - 1) < 0.0001) {
-                return true;
-        } else {
-            alert("The values must add up to 1.");
-            return false
-        }};
-        </script>
     </div>
+    <!-- <div class="cards_result">
+        <h1> Porbability Plot</h1>
+        <img src="data:image/png;base64, {{ plot_url_1 }}">
+        <img src="data:image/png;base64, {{ plot_url_2 }}">
+        <img src="data:image/png;base64, {{ plot_url_3 }}">
+    </div> -->
+    <script type="text/javascript">
+
+    //    resetBtn = document.getElementById("resetBtn");
+    //    resetBtn.addEventListener("click", function(){
+    //     $("#cards_result").hide()});
+
+    //     if (plot_url_1) {
+    //         $("#cards_result").show();
+    //     }
+    //     else{
+    //         $("#cards_result").hide();
+    //     }
+        function validate(){
+            const weight1 = parseFloat(document.getElementById("weight_1").value);
+            const weight2 = parseFloat(document.getElementById("weight_2").value);
+            const sum = weight1  + weight2;
+            if (Math.abs(sum - 1) < 0.0001) {
+            return true;
+    } else {
+        alert("The values must add up to 1.");
+        return false
+    }};
+
+    function loading(){
+        $("#cards").show();
+        $("#loading").show();
+    };
+    </script>
 
 
 </body>
