@@ -12,7 +12,7 @@
     <script type="module" src="static/main.js"></script>
     <div class="parent">
         <div class="cards">
-            <form id= "myForm" action="{{ url_for('home')}}" method="POST" onsubmit="return validate()">
+            <form id= "myForm" action="{{ url_for('home')}}" method="POST" onsubmit="return validate();">
                 <div class="table">
                     <div>VARIABLES</div>
                     <div ><b>LINE_1</b></div>
@@ -26,7 +26,6 @@
                     <div id="variables">Weights</div>
                     <div><input  type="number" name="weight_1" id="weight_1" step="0.01" placeholder=" 0 to 1" required></div>
                     <div><input  type="number" name="weight_2" id="weight_2" step="0.01" placeholder=" 0 to 1" required></div>
-
                 </div>
                     <div class="section">
                     <label for="section">Section</label>
@@ -35,11 +34,23 @@
                     <input type="number" name="shift_size" id="shift_size" step="0.05" placeholder=" 0.1 to 5" required>
                 </div>
                 <div class="form-footer">
-                    <button id ="submitBtn" type="submit">Generate Plot</button>
-                    <button id ="resetBtn" type="reset" >RESET</button>
+                   <input id="submitBtn" style=" width: 200px; padding: 15px" type="submit" value="Generate Plot">
+                    <input id="resetBtn" style=" width: 200px; padding: 15px" type="reset" class="reset"  value="Reset">
                 </div>
-               </form>
-             </div>
+            </form>
+            <script>
+                function validate(){
+                    const weight1 = parseFloat(document.getElementById("weight_1").value);
+                    const weight2 = parseFloat(document.getElementById("weight_2").value);
+                    const sum = weight1  + weight2;
+                    if (Math.abs(sum - 1) < 0.0001) {
+                    return true;
+            } else {
+                alert("The values must add up to 1.");
+                return false
+            }};
+            </script>
+    </div>
     <div class="dropdown">
             <div class="lists">
                 <div><label style="margin-right:10px;">Utility Class</label></div>
