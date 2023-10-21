@@ -1,0 +1,161 @@
+
+.sample{
+  vertical-align: top;
+  display: inline-block;
+}
+.parent{
+  margin: 20px;
+  width: 100%;
+;}
+
+body {
+  background-image: url('bsck.jpg');
+  background-size: cover;
+  background-position: center center;
+  /* background-position-x: right;
+  background-position-y: bottom; */
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.1);
+  /* background: #000; */
+}
+
+.cards{
+    background: linear-gradient(135deg, #00feba 0%, #5b548a 100%);
+    border-radius: 20px;
+    color: #fff;
+    /* width: 750px; */
+    height:auto;
+    padding: 25px;
+    font-size: 20px;
+    margin-top: 0px;
+    display: inline-block;
+    vertical-align: top;
+}
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+.table input, .section input{
+    /* width: 100%; */
+    padding: 5px;
+    font-size: 20px;
+}
+#variables, .section label{
+  border: 1px solid #000;
+  color: white;
+  background-color: gray;
+  text-align: center ;
+  padding: 5px;
+}
+
+.table{
+  font-size: 20px;
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+row-gap: 15px;
+column-gap: 15px;
+text-align: left;
+
+}
+.form-footer{
+  margin-top: 15px;
+
+}
+#submitBtn{
+  background-color: #0cdb55;
+  color: #fff;
+  border-radius: 5px;
+  margin-left: 50px;
+  cursor: pointer;
+  padding: 15px;
+  border:None;
+  font-size: 20px;
+}
+
+#resetBtn{
+  background-color: #6d071b;
+  color: #fff;
+  border-radius: 5px;
+  margin-left: 350px;
+  cursor: pointer;
+  border:None;
+  padding: 15px;
+  font-size: 20px;
+}
+
+.section{
+    margin-top: 20px;
+    margin-left: 50px;
+}
+.section input{
+    width: 200px;
+    padding: 5px;
+}
+
+.lists{
+  background-color: white;
+    font-size: 25px;
+    border-radius: 5px;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 150px 50px;
+    row-gap: 15px;
+    column-gap: 20px;
+    width: 400px;
+    border: 10px solid gray;
+
+}
+.utility, .assets{
+    font-size: 25px;
+    border-radius: 50px;
+    padding: 5px;
+
+}
+.dropdown{
+    display: inline-block;
+    margin-left: 50px;
+
+}
+.parent2{
+  /* margin-top: 50px; */
+  display: grid;
+  grid-template-columns: 1fr 800px;
+  column-gap: 30px;
+}
+.map{
+  background: #000;
+}
+.rules{
+  background: white;
+  height: 900px;
+}
+
+#mapBck{
+  height: 100%;
+  border: 5px solid black;
+  cursor: pointer;
+}
+
+#floating-panel input{
+  /* width: 100%; */
+  padding: 5px;
+  font-size: 20px;
+  margin-bottom: 10px;
+  height: 40px;
+  text-align: center;
+  background: black;
+  color: white
+}
+
+#floating-panel {
+  display: inline-block;
+
+  top: 10px;
+
+  background-color: #6e0f0f;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+
+
+}
