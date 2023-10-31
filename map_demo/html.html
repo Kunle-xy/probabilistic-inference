@@ -1,19 +1,19 @@
 <html>
   <head>
-    <title>Removing Markers</title>
+    <title>Places Search Box</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
     <link rel="stylesheet" type="text/css" href="./main.css" />
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <div id="floating-panel">
-      <input id="hide-markers" type="button" value="Hide Markers" />
-      <input id="show-markers" type="button" value="Show Markers" />
-      <input id="delete-markers" type="button" value="Delete Markers" />
-    </div>
+    <input
+      id="pac-input"
+      class="controls"
+      type="text"
+      placeholder="Search Box"
+    />
     <div id="map"></div>
-    <p>Click on the map to add markers.</p>
 
     <!--
       The `defer` attribute causes the callback to execute after the full HTML
@@ -23,7 +23,7 @@
       for more information.
       -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIXB-N-0noBQTTq_slX9n7u4PBDJBb5Nc&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIXB-N-0noBQTTq_slX9n7u4PBDJBb5Nc&callback=initAutocomplete&libraries=places&v=weekly"
       defer
     ></script>
   </body>

@@ -14,7 +14,7 @@
         <div class="cards">
             <form id= "myForm" action="{{ url_for('home')}}" method="POST" onsubmit="return validate();">
                 <div class="table">
-                    <div>VARIABLES</div>
+                    <div><b>VARIABLES</b></div>
                     <div ><b>LINE_1</b></div>
                     <div><b>LINE_2</b></div>
                     <div id="variables">Endpoint 1</div>
@@ -30,11 +30,11 @@
                     <div class="section">
                     <label for="section">Section</label>
                     <input type="number" name="section" id="section" step="0.05" placeholder=" 0 to 1" required>
-                    <label for="shiftSize">Shift Size</label>
+                    <label for="section">Shift Size</label>
                     <input type="number" name="shift_size" id="shift_size" step="0.05" placeholder=" 0.1 to 5" required>
                 </div>
                 <div class="form-footer">
-                   <input id="submitBtn" style=" width: 200px; padding: 15px" type="submit" value="Generate Plot">
+                   <input id="submitBtn" style=" padding: 15px" type="submit" value="Generate Probability Plot">
                     <input id="resetBtn" style=" width: 200px; padding: 15px" type="reset" class="reset"  value="Reset">
                 </div>
             </form>
@@ -53,7 +53,7 @@
     </div>
     <div class="dropdown">
             <div class="lists">
-                <div><label style="margin-right:10px;">Utility Class</label></div>
+                <div><p style="margin-right:10px; color: black;"><b>Utility Class</b><p></div>
                 <div><select id="utility" class="utility">
                     <option value="Electrical">Electrical</option>
                     <option value="Gas">Gas</option>
@@ -63,7 +63,7 @@
                     <option value="Stormwater" >Stormwater</option>
                 </select>
                 </div>
-                <div><label >Utility</label></div>
+                <div><p style="margin-right:10px; color: black;" ><b>Appurtenance</b><p></div>
                 <div>
                     <select class="assets" id="assets"></select> <br>
                 </div>
@@ -71,28 +71,54 @@
     </div>
     </div>
     <div id="floating-panel">
-        <input id="hide-markers" type="button" value="Hide Markers" />
-        <input id="show-markers" type="button" value="Show Markers" />
-        <input id="delete-markers" type="button" value="Delete Markers" />
+        <input id="hide-markers" type="button" value="Hide All Markers" />
+        <input id="show-markers" type="button" value="Show All Markers" />
+        <input id="delete-markers" type="button" value="Delete All Markers" />
+        <input id="delete-single-markers" type="button"  value="Delete selected Marker" />
     </div>
     <div id="search-container">
         <input type="text" id="search-input" placeholder="Enter a location">
-        <button id="search-button">Search</button>
+        <!-- <button id="search-button">Search</button> -->
     </div>
+
     <div class="parent2">
         <div class="map">
 
             <div id="mapBck"></div>
             <script
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIXB-N-0noBQTTq_slX9n7u4PBDJBb5Nc&callback=initMap&v=weekly"
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIXB-N-0noBQTTq_slX9n7u4PBDJBb5Nc&callback=initMap&v=weekly&libraries=places"
                 defer
             ></script>
 
         </div>
-
-
         <div class="rules">
-            <p>Utility rule here</p>
+            <p style="text-align: center; font-size: x-large;">Utility Rule Setup</p>
+            <nav>
+                <ul class="navMenu">
+                    <li data-value="Water"><button><a style="color: blue;" href="#water">Water</a></button></li>
+                    <li data-value="Sanitary"><button><a style="color: purple;" href="#sanitary">Sanitary</a></button></li>
+                    <li data-value="Stormwater"><button><a style="color: green;" href="#stormwater">Stormwater</a></button></li>
+                    <li data-value="Telecom"><button><a style="color: rgb(140, 92, 4);" href="#telecom">Telecom</a></button></li>
+                    <li data-value="Electrical"><button><a style="color: red;" href="#electricity">Electricity</a></button></li>
+                    <li data-value="Gas"><button><a style="color: rgb(42, 42, 13);" href="#gas">Gas</a></button></li>
+                </ul>
+            </nav>
+            <div>
+                <div style="margin-bottom: 15px;" id="defaultRule"></div>
+                <div style="margin-bottom: 5px;" class="ruleAdd">
+                        <p>Asset1</p>
+                        <select class="ruleAssets" id="ruleAssets1"></select>
+                        <p>Asset2</p>
+                        <select class="ruleAssets" id="ruleAssets2"></select>
+                        <input id = "rank" type="text" placeholder="rank">
+                        <button  id="addRule">Add</button>
+                </div>
+            </div>
+
+            <div style="text-align: center; "class="aiPlot">
+                <input style="background-color: green; color: white" type="button" value="Generate AI Plot">
+
+            </div>
         </div>
     </div>
 </body>

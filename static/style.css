@@ -93,17 +93,20 @@ text-align: left;
 }
 
 .lists{
-  background-color: white;
+  background: linear-gradient(135deg, #00feba 0%, #5b548a 100%);
     font-size: 25px;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 15px;
     display: grid;
     grid-template-columns: 150px 50px;
     row-gap: 15px;
-    column-gap: 20px;
-    width: 400px;
-    border: 10px solid gray;
+    column-gap: 29px;
+    width: 480px;
+}
 
+.lists p{
+  margin: 0;
+  padding: 0;
 }
 .utility, .assets{
     font-size: 25px;
@@ -127,7 +130,7 @@ text-align: left;
 }
 .rules{
   background: white;
-  height: 900px;
+  height: 500px;
 }
 
 #mapBck{
@@ -140,22 +143,114 @@ text-align: left;
   /* width: 100%; */
   padding: 5px;
   font-size: 20px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   height: 40px;
   text-align: center;
-  background: black;
-  color: white
+  /* background: black; */
+/
 }
 
 #floating-panel {
   display: inline-block;
-
-  top: 10px;
-
-  background-color: #6e0f0f;
+  /* top: 10px; */
+  background-color: white;
   padding: 5px;
   border: 1px solid #999;
   text-align: center;
-
-
 }
+
+#search-container{
+  display: inline-block;
+  margin-left: 50px;
+  margin-bottom: 0px;
+  width: 500px;
+  height: auto ;
+}
+#search-input{
+  width: 70%;
+  height: 40px;
+  border-radius: 100px;
+  font-size: 20px;
+  border: 3px solid #000;
+  background-color: rgb(244, 239, 239);
+  color: black;
+  padding-left: 20px;
+}
+#search-button{
+  width: 20%;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 20px;
+  background-color: #0cdb55;
+  color: #fff;
+  border:None;
+  cursor: pointer;
+}
+ul.nav-menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #333;
+  display: inline-block;
+  /* overflow: hidden; */
+}
+
+/* Style for the list items within the navigation menu */
+ul.nav-menu li {
+  float: left;
+}
+
+/* Style for the links in the navigation menu */
+ul.nav-menu li a {
+  margin-left: 5px;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.ruleAdd p{
+  display: inline-block;
+
+ }
+.ruleAssets{
+  display: inline-block;
+}
+
+#show-markers{
+  background: green;
+  color: white;
+}
+
+#delete-markers{
+  background: red;
+  color: white;
+}
+
+#hide-markers{
+  background: black;
+  color: white;
+}
+
+#delete-single-markers{
+  background: yellow;
+  color: black;
+}
+
+#defaultRule table{
+  margin-top: 300px;
+  background: #052510;
+  color: white;
+  border: 1px solid #ddd;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#defaultRule table th, #defaultRule table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+

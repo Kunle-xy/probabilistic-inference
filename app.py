@@ -34,7 +34,7 @@ def home():
         data['dx'] = float(dx)
 
         # Redirect the user to the home page
-        return redirect(url_for("get_plots"))
+        # return redirect(url_for("get_plots"))
 
     # Render the form template to display the add transaction form
     return render_template("index.html")
